@@ -1,5 +1,5 @@
 pragma solidity 0.8.7;
-//SPDX-License-Identifier: MIT 
+
 abstract contract AzookerUAI {
 bool Managed;
 address Manager;
