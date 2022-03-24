@@ -1,41 +1,46 @@
 pragma solidity 0.8.7;
-
-abstract contract AzookerUAI {
+abstract contract AzookerUAI { /*Work in progres... You can start with this*/
 bool Managed;
 address Manager;
 modifier isManager(){require(msg.sender == Manager, "Security Warning"); _;}
 function IsManaged() public view returns(bool){return Managed;}
 
 constructor(bool _Managed){ Managed = _Managed; Manager = msg.sender; }
+function UAIRegisterTest(string memory AI) public AIOwner(AI){ AI_Users[AI].Address = msg.sender; }
 
-function _SetManager(address newManager) public {require(Manager == msg.sender && Managed); Manager = newManager;}
-function AI_Transfer(string memory AI, address toAddress) public{
+/*Deployer set new manager address*/
+function _SetManager(address newManager) isManager() public {Manager = newManager;}
+function AI_Transfer(string memory AI, address toAddress) public isManager() {
     require(Managed, "This function is not enabled");
-    require(msg.sender == Manager, "Security Warning: You can't do this");
     AI_Users[AI].Address = toAddress; }
+
+//Ban by set new address to this AI(Cheaters)
 function AI_Undo(string memory AI) public  {
     require(AILogin(AI), "Login error");
     AI_Users[AI].Address = address(0);
-    }//Ban by set new address to this AI(Cheaters)
+    }
+
 
     mapping(string => User) AI_Users;
         struct User{
             address Address;
             }
     
-function AI_SetUp(string memory AI) public AIOwner(AI){ AI_Users[AI].Address = msg.sender; }
-modifier AIOwner(string memory AI)  { //Easy login
+
+//Simple register modifier 
+modifier AIOwner(string memory AI)  { 
     if(AI_Users[AI].Address == address(0))  AI_Users[AI].Address = msg.sender;
     require(AI_Users[AI].Address == msg.sender,
      "You are not the owner of this account"); 
     _;  }
 
-    function AILogin(string memory AI) public view returns(bool) { //Check if sender logged in
+    /*Sign transaction -> Login with account ID*/
+    function AILogin(string memory AI) public view returns(bool) { 
     bool IsManager = (Managed == true && msg.sender == Manager);
     if(AI_Users[AI].Address == msg.sender || (IsManager && Managed)) return true; else return false;
     }
 
-
+    /*User account ID -> toAddress*/
     function AIAddress(string memory AI) public view returns(address){
         return(AI_Users[AI].Address);
     }
