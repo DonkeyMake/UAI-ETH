@@ -15,7 +15,7 @@ import "./AzookerUAI.sol";
 
 
     //Storage set new Storage address
-    function _SetStorage(address newStorage) public isManager() {
+    function _SetStorage(address newStorage) public {
         require(msg.sender == Storage, "Security Warning: Only Storage");
         Storage = newStorage; }
 
@@ -51,3 +51,4 @@ Que ellos emprendan un nuevo viaje, [...]
 */ address payable Donkey = payable(0x7B1124E3d88214d576073074fC3EfEbc865CE7F2);
 
 }
+
