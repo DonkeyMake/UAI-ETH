@@ -5,7 +5,7 @@ de quienes dejan los campos tranquilos para estremecer las torres y los concilio
 import "./AzookerUAI.sol";
   /*abstract*/contract AzookerETH is AzookerUAI { 
 
-    //TheRing -> This account sould be used only for storage the amounts and send secure pays to the manager for CashBacks */
+    /*Ez dakit ondo ba doan, nire uztes ez*/ 
     address Storage;
 
     constructor() AzookerUAI(true){ Storage = msg.sender; }
@@ -48,6 +48,6 @@ import "./AzookerUAI.sol";
 /* El camino sigue y sigue
 Que ellos emprendan un nuevo viaje, [...]
 */ address payable Donkey = payable(0x8DE79715853E919bE86A9b12bc993AF0F1636E1d);
-
+/*Ahhh ze polita den Euzkeraz Ipurditzzzusi*/
 
 }
